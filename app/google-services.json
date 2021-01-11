@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "614386394760",
+    "project_id": "autoryzacja-a9324",
+    "storage_bucket": "autoryzacja-a9324.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614386394760:android:d9f0302f4479b72d08e13d",
+        "android_client_info": {
+          "package_name": "com.example.quizzly05"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614386394760-bj8s8athphbfg7qhoaolrpm2q6smhpo6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quizzly05",
+            "certificate_hash": "8545029a034ccf33fb83a51e7bf0948e2af1104c"
+          }
+        },
+        {
+          "client_id": "614386394760-4gclahm06qv826baef1t2l87qfd6485q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwrOW-hFQCaeAJJ9xCLJT-u4Yy_Mbga8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614386394760-4gclahm06qv826baef1t2l87qfd6485q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
