@@ -10,4 +10,10 @@
     <color name="lightblue">#1DA1F2</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimaryDark">#222934</color>
+    <color name="colorThemePink">#ED2173</color>
+    <color name="colorThemeOrange">#F4442d</color>
+    <color name="colorSecondaryText">#989898</color>
+    <color name="colorPrimaryText">#222934</color>
+    <color name="colorSnackBarSuccess">#8BC34A</color>
+    <color name="colorSnackBarError">#F72400</color>
 </resources>

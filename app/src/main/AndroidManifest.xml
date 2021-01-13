@@ -10,13 +10,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Quizzly05">
-        <activity android:name=".QuizQuestionsActivity"></activity>
-        <activity android:name=".LoginSucceededActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity
+            android:name=".QuizQuestionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginSucceededActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".test" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

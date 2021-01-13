@@ -1,77 +1,166 @@
 package com.example.quizzly05
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Toast
+import android.view.WindowManager
+import com.example.quizzly05.R
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.view.*
 
-class RegisterActivity : AppCompatActivity() {
+// TODO Step 5: Replace the AppCompatActivity with BaseActivity to use the common function which we have created in the BaseActivity class.
+@Suppress("DEPRECATION")
+class RegisterActivity : BaseActivity() {
+
+    /**
+     * This function is auto created by Android when the Activity Class is created.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
+        //This call the parent constructor
         super.onCreate(savedInstanceState)
+        // This is used to align the xml view to this class
         setContentView(R.layout.activity_register)
 
+        // This is used to hide the status bar and make the splash screen as a full screen activity.
+        // It is deprecated in the API level 30. I will update you with the alternate solution soon.
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
-        tv_login.setOnClickListener {
-            onBackPressed()
+        // TODO Step 2: Call the function to set up the action bar.
+        // START
+        setupActionBar()
+        // END
+
+        // TODO Step 8: Assign a click event to the register button and call the validate function.
+        // START
+        btn_register.setOnClickListener {
+
+            validateRegisterDetails()
         }
 
-        btn_register.setOnClickListener {
-            when {
-                TextUtils.isEmpty(et_register_email.text.toString().trim { it <= ' ' }) -> {
-                    Toast.makeText(
-                        this@RegisterActivity,
-                        "Proszę o podanie adresu e-mail.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+        tv_login.setOnClickListener{
+            // Here when the user click on login text we can either call the login activity or call the onBackPressed function.
+            // We will call the onBackPressed function.
+            onBackPressed()
+        }
+        // END
+    }
 
-                TextUtils.isEmpty(et_register_password.text.toString().trim { it <= ' ' }) -> {
-                    Toast.makeText(
-                        this@RegisterActivity,
-                        "Proszę o podanie hasła.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else -> {
-                    val email: String = et_register_email.text.toString().trim { it <= ' ' }
-                    val password: String = et_register_password.text.toString().trim { it <= ' ' }
+    // TODO Step 1: Create a function to set up an action bar.
+    // START
+    /**
+     * A function for actionBar Setup.
+     */
+    private fun setupActionBar() {
 
-                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(
-                            { task ->
+        setSupportActionBar(toolbar_register_activity)
 
-                                if (task.isSuccessful) {
-                                    val firebaseUser: FirebaseUser = task.result!!.user!!
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24dp)
+        }
 
-                                    Toast.makeText(
-                                        this@RegisterActivity,
-                                        "Zarejestrowałeś się pomyślnie",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+        toolbar_register_activity.setNavigationOnClickListener { onBackPressed() }
+    }
+    // END
 
-                                    val intent =
-                                        Intent(this@RegisterActivity, LoginSucceededActivity::class.java)
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                    intent.putExtra("user_id", firebaseUser.uid)
-                                    intent.putExtra("email_id", email)
-                                    startActivity(intent)
-                                    finish()
-                                } else {
-                                    Toast.makeText(
-                                        this@RegisterActivity,
-                                        task.exception!!.message.toString(),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            })
-                }
+    // TODO Step 6: Create an function to validate the register account fields.
+    // START
+    /**
+     * A function to validate the entries of a new user.
+     */
+    private fun validateRegisterDetails(): Boolean {
+        return when {
+            TextUtils.isEmpty(et_first_name.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
+                false
             }
+
+            TextUtils.isEmpty(et_last_name.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_last_name), true)
+                false
+            }
+
+            TextUtils.isEmpty(et_email.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
+                false
+            }
+
+            TextUtils.isEmpty(et_password.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
+                false
+            }
+
+            TextUtils.isEmpty(et_confirm_password.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_confirm_password), true)
+                false
+            }
+
+            et_password.text.toString().trim { it <= ' ' } != et_confirm_password.text.toString()
+                .trim { it <= ' ' } -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_password_and_confirm_password_mismatch), true)
+                false
+            }
+            !cb_terms_and_condition.isChecked -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_agree_terms_and_condition), true)
+                false
+            }
+            else -> {
+                showErrorSnackBar("Your details are valid.", false)
+                true
+            }
+        }
+    }
+    private fun registerUser() {
+
+        // Check with validate function if the entries are valid or not.
+        if (validateRegisterDetails()) {
+
+
+            val email: String = et_email.text.toString().trim { it <= ' ' }
+            val password: String = et_password.text.toString().trim { it <= ' ' }
+
+            // Create an instance and create a register a user with email and password.
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(
+                    OnCompleteListener<AuthResult> { task ->
+
+                        // Hide the progress dialog
+//                        hideProgressDialog()
+
+                        // If the registration is successfully done
+                        if (task.isSuccessful) {
+
+                            // Firebase registered user
+                            val firebaseUser: FirebaseUser = task.result!!.user!!
+
+                            showErrorSnackBar(
+                                "You are registered successfully. Your user id is ${firebaseUser.uid}",
+                                false
+                            )
+
+                            /**
+                             * Here the new user registered is automatically signed-in so we just sign-out the user from firebase
+                             * and send him to Login Screen.
+                             */
+
+                            /**
+                             * Here the new user registered is automatically signed-in so we just sign-out the user from firebase
+                             * and send him to Login Screen.
+                             */
+                            FirebaseAuth.getInstance().signOut()
+                            // Finish the Register Screen
+                            finish()
+                        } else {
+                            // If the registering is not successful then show error message.
+                            showErrorSnackBar(task.exception!!.message.toString(), true)
+                        }
+                    })
         }
     }
 }

@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">quizzly05</string>
+
+    <string name="content_description">image</string>
+    <string name="title_login">Zaloguj</string>
+    <string name="et_hint_email_id">Adres e-mail</string>
+    <string name="et_hint_password">Hasło</string>
+    <string name="lbl_forgot_password">Zapomniałeś hasło?</string>
+    <string name="btn_lbl_login">Login</string>
+    <string name="don_t_have_an_account">Nie masz jeszcze konta?</string>
+    <string name="register"><u>Zarejestruj</u></string>
+
+    <string name="create_an_account">STWÓRZ KONTO</string>
+
+    <string name="hint_last_name">Imię</string>
+    <string name="hint_first_name">Nazwisko</string>
+    <string name="et_hint_confirm_password">Confirm Password</string>
+
+    <string name="i_agree_to_the_terms_and_condition">Akceptuję <u> regulamin </u></string>
+    <string name="btn_lbl_register">Zarejestruj</string>
+
+    <string name="already_have_an_account">Masz już konto?</string>
+    <string name="login"><u>Login</u></string>
+
+    <string name="err_msg_enter_first_name">Podaj swoje imię.</string>
+    <string name="err_msg_enter_last_name">Podaj swoje nazwisko.</string>
+    <string name="err_msg_enter_email">Podaj swój email.</string>
+    <string name="err_msg_enter_password">Podaj swoje hasło.</string>
+    <string name="err_msg_enter_confirm_password">Potwierdź swoje hasło.</string>
+    <string name="err_msg_password_and_confirm_password_mismatch">Hasło i potwierdzenie hasła nie zgadzają się.</string>
+    <string name="err_msg_agree_terms_and_condition">Proszę wyrazić zgodę na regulamin.</string>
+    <string name="please_wait">Proszę czekać</string>
+    <string name="title_forgot_password">ZAPOMNIAŁEŚ HASŁO?</string>
+    <string name="forgot_password_title_description">Wprowadź swoją nazwę użytkownika lub hasło, a wyślemy Ci wiadomość z linkiem do resetu hasła</string>
+    <string name="btn_lbl_submit">Wyślij</string>
+    <string name="email_sent_success">\"Wysłano wiadomość e-mail z nowym hasłem! \"</string>
+
 </resources>
